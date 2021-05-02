@@ -1,0 +1,254 @@
+{% extends 'Formulaire/layouts/page.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    {% include 'Formulaire/patients/patients_nav.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="h3 mb-3">Nouveau patient</div>
+
+            <form action="{% url 'patients.create' %}" method="POST">
+                {% csrf_token %}
+                <div class="row mb-5">
+                    <div class="col-md-6 col-sm-12">
+                        <input type="text" class="form-control form-lg" placeholder="Nom patient" name="nom_patient">
+                    </div>
+                </div>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-selected="true">Information Générale</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#pression" type="button" role="tab" aria-selected="false">Pression arterielle</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#oxymetrie" type="button" role="tab" aria-selected="false">Oxymétrie</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#temperature" type="button" role="tab" aria-selected="false">Température</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#indice" type="button" role="tab" aria-selected="false">Indice de masse corporelle</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#interpretation" type="button" role="tab" aria-selected="false">Les interprètations</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#covid" type="button" role="tab" aria-selected="false">Evaluation COVID-19</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+
+                    <div class="tab-pane fade show active pt-3" id="general" role="tabpanel">
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Date de creation</label>
+                            <div class="col-sm-6">
+                                <input type="date" class="form-control" value="0" name="date_creation">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Sexe</label>
+                            <div class="col-sm-6">
+                                <select name="sexe" class="form-control">
+                                    <option></option>
+                                    <option value="M">Masculin</option>
+                                    <option value="F">Féminin</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Date de naissance</label>
+                            <div class="col-sm-6">
+                                <input type="date" class="form-control" value="0" name="date_naissance">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Poids (Kg)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="poids">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Taille (cm)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="taille">
+                            </div>
+                        </div>
+
+                    </div>
+                
+                    <div class="tab-pane fade pt-3" id="pression" role="tabpanel">
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">PA systolique (mmHg)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="pa_systotique">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">PA diastolique (mmHg)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="pa_diastolique">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">PAM (mmHg)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="pam">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Rythme Cardiaque (PA)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="rythme_cardiaque_pa">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">HTA</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="hta">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade pt-3" id="oxymetrie" role="tabpanel">
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Oxymétrie (%)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="oxymetrie">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Rythme Cardiaque (Oxy) (bpm)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="rythme_cardiaque_oxy">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade pt-3" id="temperature" role="tabpanel">
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Température (°C)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="temperature">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade pt-3" id="indice" role="tabpanel">
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">IMC</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="imc">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Interprétation IMC </label>
+                            <div class="col-sm-6">
+                                <textarea name="interpretation_imc" rows="3" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade pt-3" id="interpretation" role="tabpanel">
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Gyclémie (mg/dl)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="glycemie_1">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Gyclémie (mmol/L)</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" value="0" name="glycemie_2">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Diabète</label>
+                            <div class="col-sm-6">
+                                <textarea name="diabete" rows="3" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Cardiopathie</label>
+                            <div class="col-sm-6">
+                                <textarea name="cardiopathie" rows="3" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">ECG</label>
+                            <div class="col-sm-6">
+                                <textarea name="ecg" rows="3" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Interprétations ECG</label>
+                            <div class="col-sm-6">
+                                <textarea name="interpretation_ecg" rows="3" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade pt-3" id="covid" role="tabpanel">
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Classifier vulnérabilité</label>
+                            <div class="col-sm-6">
+                                <input id="vulnerabilite" type="number" class="form-control" value="0" name="vulnerabilite" onchange="UpdateScore1(this)"> 
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Classifier le groupe de risque d'exposition</label>
+                            <div class="col-sm-6">
+                                <input id="groupe_risque" type="number" class="form-control" value="0" name="groupe_risque" onchange="UpdateScore2(this)">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Score de risque</label>
+                            <div class="col-sm-6">
+                                <input id="score_risque" type="number" class="form-control" value="0" name="score_risque" readonly>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">Envoyer</button>
+                    </div>
+                </div>
+            
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+function UpdateScore1(e){
+    a = parseInt(e.value)
+    b = parseInt(document.getElementById("groupe_risque").value);
+    r = document.getElementById("score_risque");
+    r.value = a * b;
+}
+
+function UpdateScore2(e){
+    a = parseInt(e.value)
+    b = parseInt(document.getElementById("vulnerabilite").value);
+    r = document.getElementById("score_risque");
+    r.value = a * b;
+}
+
+</script>
+{% endblock %}

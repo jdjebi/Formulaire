@@ -1,0 +1,35 @@
+{% extends 'Formulaire/layouts/page.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    {% include 'Formulaire/patients/patients_nav.html' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="h3">Liste des patients</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">ID patient</th>
+                        <th scope="col">Nom patient</th>
+                        <th scope="col" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr>
+                        <th scope="col">{{ forloop.counter }}</th>
+                        <th scope="col">{{ patient.id }}</th>
+                        <th scope="col">{{ patient.nom_patient }}</th>
+                        <th class="text-end">
+                            <a href="{% url 'patients.show' patient.id %}" class="btn btn-sm btn-primary">Consulter</a>
+                            <a href="{% url 'patients.export' patient.id %}" class="btn btn-sm btn-success">Exporter</a>
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
