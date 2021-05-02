@@ -23,7 +23,6 @@
                         <th scope="col">{{ patient.nom_patient }}</th>
                         <th class="text-end">
                             <a href="{% url 'patients.show' patient.id %}" class="btn btn-sm btn-primary">Consulter</a>
-                            <a href="{% url 'patients.export' patient.id %}" class="btn btn-sm btn-success">Exporter</a>
                         </th>
                     </tr>
                     {% endfor %}

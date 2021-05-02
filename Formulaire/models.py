@@ -15,7 +15,7 @@ class Patient(models.Model):
     sexe = models.CharField(_("Sexe"),choices=SEXE,max_length=255,blank=True,null=True)
     date_naissance = models.DateField(_("Date de naissance"),blank=True,null=True)
     date_naissance_str = models.CharField(_("Date de naissance (STR)"),max_length=255,blank=True,null=True) # Date sans contrainte de format
-    poids = models.FloatField(_("Poids"),blank=True,null=True)
+    poids = models.FloatField(_("Poids"),blank=True,null=True,default=0)
     taille = models.FloatField(_("Taille"),blank=True,null=True)
     
     # Pression artérielle

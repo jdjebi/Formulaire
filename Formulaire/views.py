@@ -39,11 +39,14 @@ def patients_create(request):
         if form.is_valid():
             p_data = {}
 
+            date_creation = form.data.get('date_creation')
+            date_naissance = form.data.get('date_naissance')
+
             # Les conditions ci-dessous permettent d'éviter les conflits de format de date avec django au cas les champs date sont vides 
-            if form.data.get('date_creation') == '':
+            if date_creation == '':
                 date_creation = None
             
-            if form.data.get('date_creation') == '':
+            if date_naissance == '':
                 date_naissance = None
 
             p_data["date_creation"] = date_creation
@@ -109,6 +112,8 @@ def patients_import(request):
                 row_data.append(value)
             print(row_data[5])
             excel_data.append(row_data)
+
+        print(excel_data[0])
             
         excel_data = excel_data[1:] # On commence à partir de la deuxième ligne, le première contient les colonnes
 
@@ -157,8 +162,59 @@ def patients_import(request):
 
     return redirect("patients.list")
 
-def patients_export(request, id):
-    return render(request,"Formulaire/patients/patients_list.html")
+def patients_export(request):
+
+    patients = Patient.objects.all()
+
+    wb = openpyxl.Workbook()
+
+    ws = wb.active
+
+    titles = ['Individu_ID', 'Date de Création', 'Nom Patient', 'Sexe', 'Date de Naissance', 'Poids', 'Tailles', 'PA Systolique', 'PA Diastolique', 'PAM', 'PA Rythme cardiaque', 'HTA', 'Oxymetrie %', 'Oxymetrie Rythme cardiaque', 'Températures', 'IMC', 'Interprétation IMC', 'Diabète', 'Cardiopathie', 'ECG', 'Interprétation ECG', 'Classifier la vulnérabilité', "CLASSIFIER LE GROUPE DE RISQUE D'EXPOSITION", 'Score de risque','Glycémie (mg/dl)','Glycémie (mmol/L)']
+
+    ws.append(titles)
+
+    for patient in patients:
+        data = []
+        
+        data = [
+            patient.id,
+            str(patient.date_creation),
+            patient.nom_patient,
+            patient.sexe,
+            str(patient.date_naissance),
+            patient.poids,
+            patient.taille,
+            patient.pa_systotique,
+            patient.pa_diastolique,
+            patient.pam,
+            patient.rythme_cardiaque_pa,
+            patient.hta,
+            patient.oxymetrie,
+            patient.rythme_cardiaque_oxy,
+            patient.temperature,
+            patient.imc,
+            patient.interpretation_imc,
+            patient.diabete,
+            patient.cardiopathie,
+            patient.ecg,
+            patient.interpretation_ecg,
+            patient.vulnerabilite,
+            patient.groupe_risque,
+            patient.score_risque,
+            patient.gyclémie_1,
+            patient.gyclémie_2,
+        ]
+        
+        ws.append(data)
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    
+    response['Content-Disposition'] = 'attachment; filename=mydata.xlsx'
+
+    wb.save(response)
+       
+    return response
 
 def create_patient(data):
     patient = Patient(
