@@ -9,12 +9,7 @@ import openpyxl
 class PatientCreateFrom(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = (
-            'nom_patient',
-            'vulnerabilite',
-            'groupe_risque',
-            'score_risque'
-        )
+        fields = ('nom_patient','vulnerabilite','groupe_risque','score_risque')
 
 def patients_list(request):
 
@@ -125,7 +120,7 @@ def patients_import(request):
                 p_data["date_creation_str"] = data[1]
                 p_data["nom_patient"] = data[2]
                 p_data["sexe"] = data[3]
-                p_data["date_naissance"] = data[4]
+                p_data["date_naissance"] = None
                 p_data["date_naissance_str"] = data[4]
                 p_data["poids"] = None
                 p_data["taille"] = data[6]
@@ -179,10 +174,10 @@ def patients_export(request):
         
         data = [
             patient.id,
-            str(patient.date_creation),
+            patient.date_creation_str,
             patient.nom_patient,
             patient.sexe,
-            str(patient.date_naissance),
+            patient.date_naissance_str,
             patient.poids,
             patient.taille,
             patient.pa_systotique,
